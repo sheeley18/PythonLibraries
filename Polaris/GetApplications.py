@@ -4,7 +4,7 @@ import json
  
 
 #Variables to Input:
-api_token= "i6lnkpoj8l69l2bp3m3g6ukj1jq6cvjbic2kt9s0q0r5di1dec11903spgu622krm0j5biep6km4c"
+api_token= "Api Token"
 
 #Do Not Touch
 portfoliourl = "https://poc.polaris.synopsys.com/api/portfolio/portfolios"
