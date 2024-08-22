@@ -3,10 +3,8 @@ import json
 import re
 import argparse
 
-#TO DO:
-#1. Line 113 fix json parsing so longterm and shortterm version names return
-#2. Escape Loop checking for transitives and get normal upgrade guidance instead
-
+#Syntax:
+#python3 GetRemediation.py --Project project --Version version
 #Input Variables
 
 #Blackduck URL
