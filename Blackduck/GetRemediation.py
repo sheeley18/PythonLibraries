@@ -13,7 +13,7 @@ import argparse
 hub_uri = 'https://demo.blackduck.synopsys.com'
 
 #API Token
-apitoken = 'Mjg2ZWZiZDAtYjBkOC00ZGRjLThiMDItNzg0M2Y4NjdiMzlkOjdjYzYyMzM3LTQ1NWEtNGYxNS1iNzUyLWVhNTEyNTA2OGZlNA=='
+apitoken = 'API Token'
 
 # Set up argument parsing
 parser = argparse.ArgumentParser(description='Process project Name.')
