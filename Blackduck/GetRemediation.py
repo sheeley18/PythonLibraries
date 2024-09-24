@@ -3,15 +3,17 @@ import json
 import re
 import argparse
 
-#Syntax:
-#python3 GetRemediation.py --Project project --Version version
+#TO DO:
+#1. Line 113 fix json parsing so longterm and shortterm version names return
+#2. Escape Loop checking for transitives and get normal upgrade guidance instead
+
 #Input Variables
 
 #Blackduck URL
-hub_uri = 'URL'
+hub_uri = 'https://demo.blackduck.synopsys.com'
 
 #API Token
-apitoken = 'API Token'
+apitoken = 'Mjg2ZWZiZDAtYjBkOC00ZGRjLThiMDItNzg0M2Y4NjdiMzlkOjdjYzYyMzM3LTQ1NWEtNGYxNS1iNzUyLWVhNTEyNTA2OGZlNA=='
 
 # Set up argument parsing
 parser = argparse.ArgumentParser(description='Process project Name.')
@@ -30,6 +32,7 @@ headers = {
     'Content-Type': 'application/json',
     'Authorization': f'token {apitoken}'
 }
+#Authentication
 response = requests.post(f'{hub_uri}/api/tokens/authenticate', headers=headers)
 if response.status_code == 200:
     projectsearch_terms = f"name:{projectName}"
@@ -91,7 +94,6 @@ if response.status_code == 200:
                                 componentVersionId = item["componentVersion"].split("/")[-1]
                                 origin_id_string = [origin["origin"].split("/")[-1].split("[")[-1] for origin in item["origins"]]
                                 origin_id = str(origin_id_string).replace('[', '').replace(']', '').replace("'", '')
-                                #print(f"Component Name: {component_name} | Component ID: {componentId} | Component Version Name {version_name} | Version ID {componentVersionId}")
                                 params = {
                                 'limit': 1000,
                                 }
@@ -100,6 +102,7 @@ if response.status_code == 200:
                                 "Content-Type": "application/vnd.blackducksoftware.component-detail-5+json",
                                 "Authorization": f'bearer {bearertoken}'
                                 }
+                                #Call Upgrade Guidance API
                                 response = requests.get(f"{hub_uri}/api/components/{componentId}/versions/{versionId}/origins/{origin_id}/upgrade-guidance", headers=headers, params=params)
                                 if response.status_code == 200:
                                     upgradedata = response.json()
@@ -115,7 +118,6 @@ if response.status_code == 200:
                                             print(f"Component Name: {component_name} | Current Version: {versionName} | Short Term: {short_term_version_name} | Long Term: {long_term_version_name}")
                                         else:
                                             print(response.status_code, response.json()['errorMessage'])
-
 
 
             else:
